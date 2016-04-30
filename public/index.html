@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html class="no-js" lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hyper-V Monitor</title>
+    <link rel="stylesheet" href="/public/css/foundation.min.css">
+  </head>
+  <body>
+    <div class="row">
+    <h1>Hyper-V Monitor</h1>
+  </div>
+    <div class="row">
+    <table class="hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>State</th>
+          <th>CPUUsage</th>
+          <th>MemoryAssigned</th>
+          <th>Uptime</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{range .}}
+          <tr>
+            <td>
+              <span data-tooltip aria-haspopup="true" class="has-tip right" data-disable-hover="false" tabindex="6" title="{{.Notes}}">
+                {{.Name}}
+              </span>
+            </td>
+            {{if .IsRunning}}
+              <td><span class="success label">{{.StateDesc}}</span></td>
+            {{else}}
+              <td><span class="secondary label">{{.StateDesc}}</span></td>
+            {{end}}
+            <td>{{.CPUUsage}}%</td>
+            <td>{{.MemoryAssigned}}MB</td>
+            <td>{{.HHMMSS}}</td>
+            <td>
+              <form method="POST" action="/startvm">
+                {{if .IsRunning}}
+                  <button class="button" disabled>Start</button>
+                {{else}}
+                  <button type="submit" class="button" onclick="return check(this.value)" name="vmName" value="{{.Name}}">Start</button>
+                {{end}}
+              </form>
+            </td>
+          </tr>
+        {{end}}
+      </tbody>
+    </table>
+    </div>
+    <script src="/public/js/vendor/jquery.min.js"></script>
+    <script src="/public/js/vendor/what-input.min.js"></script>
+    <script src="/public/js/foundation.min.js"></script>
+    <script src="/public/js/app.js"></script>
+  </body>
+</html>
