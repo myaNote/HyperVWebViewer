@@ -50,7 +50,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	// change the charaset encode of powershell to UTF-8.
 	errEnc := setEncodeUtf8()
 	if errEnc != nil {
-		errMsg := errEnc.Error() + "\nEncoding to UTF-8 failed."
+		errMsg := errEnc.Error() + "\nCouldn't encode to UTF-8."
 		http.Error(w, errMsg, http.StatusInternalServerError)
 		return
 	}
@@ -61,7 +61,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	cmd.Stdout = &out
 	err := cmd.Run()
 	if err != nil {
-		errMsg := err.Error() + "\nGetting the vm information failed."
+		errMsg := err.Error() + "\nCouldn't get the vm information."
 		http.Error(w, errMsg, http.StatusInternalServerError)
 		return
 	}
@@ -71,7 +71,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	var vms VMs
 	errDec := dec.Decode(&vms.vm)
 	if errDec != nil {
-		errMsg := err.Error() + "\nDecoding of a JSON file failed."
+		errMsg := err.Error() + "\nCouldn't decode JSON."
 		http.Error(w, errMsg, http.StatusInternalServerError)
 		return
 	}
@@ -94,7 +94,7 @@ func startVMHandler(w http.ResponseWriter, r *http.Request) {
 		cmd.Stdout = &out
 		err := cmd.Run()
 		if err != nil {
-			errMsg := err.Error() + "\nStarting the VM failed.\nThe memory on the host server is not enough to start the vm, probably."
+			errMsg := err.Error() + "\nCouldn't start the VM.\nThe memory on the host server is not enough to start the vm, probably."
 			http.Error(w, errMsg, http.StatusInternalServerError)
 			return
 		}
