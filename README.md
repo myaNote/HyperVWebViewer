@@ -14,7 +14,7 @@ HyperVWebViewer allow users to check the VMs' information and start VMs.
 ## Usage
 Type the following command and go to the web page `http://localhost:8080/`.
 ``` cmd
-> git clone git@github.com:myaNote/HyperVWebViewer.git
+> git clone https://github.com/myaNote/HyperVWebViewer.git
 > cd HyperVWebViewer
 > go run hyperVWebViewer.go
 ```
