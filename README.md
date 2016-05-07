@@ -9,7 +9,7 @@ The Hyper-V Manger can do that, even thus it can change any Hyper-V setting.
 HyperVWebViewer is a web application viewer for users.
 HyperVWebViewer allow users to check the VMs' information and start VMs.
 
-![screenshot](http://blog.myanote.com/wp-content/uploads/2016/05/hypervmonitor.png)
+![HyperV Web Viewer Screenshot](http://blog.myanote.com/wp-content/uploads/2016/05/HyperVWebViewer-1.png)
 
 ## Usage
 Type the following command and go to the web page `http://localhost:8080/`.
@@ -23,7 +23,7 @@ Type the following command and go to the web page `http://localhost:8080/`.
 * Display the VMs' information such as CPUUsage, MemoryAssigned and Uptime.
 * Start a VM.
 
-![gif](http://blog.myanote.com/wp-content/uploads/2016/05/startVM.gif)
+![Start VM GIF](http://blog.myanote.com/wp-content/uploads/2016/05/startVM-1.gif)
 
 ## Add a Windows Service
 The following command is for adding HyperVWebViewer as a windows service. 
