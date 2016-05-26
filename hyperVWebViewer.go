@@ -89,6 +89,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 func startVMHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		vmName := r.FormValue("vmName")
+		// check an unsupported charactert in the parameter
 		if hasUnsupportedChar(vmName) {
 			errMsg := "\nThe post parameter has an unsupported charactoer. Please check the parameter."
 			http.Error(w, errMsg, http.StatusBadRequest)
