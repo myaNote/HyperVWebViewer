@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"net/http"
 	"os/exec"
+	"regexp"
 	"strconv"
 )
 
@@ -88,6 +89,12 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 func startVMHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		vmName := r.FormValue("vmName")
+		// check an unsupported charactert in the parameter
+		if hasUnsupportedChar(vmName) {
+			errMsg := "\nThe post parameter has an unsupported charactoer. Please check the parameter."
+			http.Error(w, errMsg, http.StatusBadRequest)
+			return
+		}
 		pscmd := "Start-VM -name " + vmName
 		cmd := exec.Command("powershell", pscmd)
 		var out bytes.Buffer
@@ -191,4 +198,10 @@ func toHHMMSS(uptime *Uptime) string {
 		ss = strconv.Itoa(uptime.Seconds)
 	}
 	return D + hh + ":" + mm + ":" + ss
+}
+
+// hasUnsupportedChar check the parameters that contain unsupported characters
+func hasUnsupportedChar(str string) bool {
+	reg := `[^0-9a-zA-Z-_\.\s]` // add some characters that contain in the vm names
+	return regexp.MustCompile(reg).Match([]byte(str))
 }
